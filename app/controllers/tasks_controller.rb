@@ -63,7 +63,7 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.json
   def update
-    @task = Task.find(id: params[:id], user: current_user)
+    @task = Task.find(params[:id])
 
     respond_to do |format|
       if @task.update_attributes(params[:task])
@@ -73,7 +73,7 @@ class TasksController < ApplicationController
         format.html { render action: "edit" }
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
-    end
+    end 
   end
 
   # DELETE /tasks/1

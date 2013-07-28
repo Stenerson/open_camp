@@ -34,4 +34,15 @@ OpenCamp::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :user_name => 'opencamp-207062483d8aed4a',
+    :password => 'bd5c2e102d7c84a3',
+    :address => 'mailtrap.io',
+    :port => '2525',
+    :authentication => :plain
+  }
+
 end

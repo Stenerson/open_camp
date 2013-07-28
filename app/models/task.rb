@@ -1,4 +1,7 @@
 class Task < ActiveRecord::Base
+
+  after_save :send_creation_email
+
   attr_accessible :due_date, :description, :name
   belongs_to :user
 
@@ -14,6 +17,10 @@ class Task < ActiveRecord::Base
     			errors.add(:due_date, "Date cannot be in the past")
     		end
       end
+    end
+
+    def send_creation_email
+      TaskMailer.task_creation(self).deliver
     end
 
 

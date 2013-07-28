@@ -11,6 +11,7 @@ gem 'rspec-rails'
 gem 'shoulda'
 gem 'factory_girl_rails'
 gem 'bootstrap-sass'
+gem 'heroku'
 
 # Gems used only for assets and not required
 # in production environments by default.

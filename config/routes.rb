@@ -1,5 +1,5 @@
 OpenCamp::Application.routes.draw do
-  root to: "tasks#index"
+  root to: "projects#index"
 
   devise_for :users
 
@@ -17,8 +17,10 @@ OpenCamp::Application.routes.draw do
 
   get "note/delete"
 
-  resources :tasks
-  resources :notes
+  resources :projects do
+    resources :tasks
+    resources :notes
+  end
 
 
   # The priority is based upon order of creation:

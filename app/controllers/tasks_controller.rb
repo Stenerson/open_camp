@@ -1,11 +1,12 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :set_project
   # GET /tasks
   # GET /tasks.json
 
 
   def index
-    @tasks = current_user.tasks
+    @tasks = @project.tasks
 
     respond_to do |format|
       format.html # index.html.erb
@@ -16,7 +17,7 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    @task = Task.find(params[:id])
+    @task = @project.tasks.find(params[:id])
 
     #return redirect_to(index) unless @task.user == current_user
 
@@ -40,7 +41,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-    @task = Task.find(params[:id])
+    @task = @project.tasks.find(params[:id])
   end
 
   # POST /tasks
@@ -48,10 +49,11 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(params[:task])
     @task.user = current_user
+    @task.project = @project
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_to project_task_url(@project,@task), notice: 'Task was successfully created.' }
         format.json { render json: @task, status: :created, location: @task }
       else
         format.html { render action: "new" }
@@ -63,11 +65,11 @@ class TasksController < ApplicationController
   # PUT /tasks/1
   # PUT /tasks/1.json
   def update
-    @task = Task.find(params[:id])
+    @task = @project.tasks.find(params[:id])
 
     respond_to do |format|
       if @task.update_attributes(params[:task])
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_to project_task_url(@project,@task), notice: 'Task was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -79,12 +81,19 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
-    @task = Task.find(id: params[:id], user: current_user)
+    @task = @project.tasks.find(id: params[:id], user: current_user)
     @task.destroy
 
     respond_to do |format|
-      format.html { redirect_to tasks_url }
+      format.html { redirect_to project_tasks_url(@project) }
       format.json { head :no_content }
     end
   end
+
+  private
+
+    def set_project
+      @project = Project.find(params[:project_id])
+    end
+
 end

@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe Task do 
+describe Note do
   it {should belong_to :project}
 end

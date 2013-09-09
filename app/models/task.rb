@@ -1,6 +1,6 @@
 class Task < ActiveRecord::Base
 
-  after_save :send_creation_email
+  after_create :send_creation_email
 
   attr_accessible :due_date, :description, :name
   belongs_to :user

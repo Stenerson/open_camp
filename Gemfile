@@ -23,10 +23,14 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'rspec-rails'
   gem 'shoulda'
-  gem 'better_errors'
-  gem 'binding_of_caller'
   gem 'meta_request'
   gem 'pry-rails'
   gem 'awesome_print'
   gem 'factory_girl_rails', '4.2.0' 
+end
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem "launchy", "~> 2.3.0"
 end

@@ -7,10 +7,15 @@ class TasksController < ApplicationController
 
   def index
     @tasks = @project.tasks
+    if params[:search].presence
+      @tasks = @tasks.search(params[:search])
+    end
+    @tasks = @tasks.sort_by!{|task| task.days_til_due}
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @tasks }
+      format.js {render :tasks}
     end
   end
 

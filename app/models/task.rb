@@ -10,6 +10,17 @@ class Task < ActiveRecord::Base
   validates :description, presence: true, length: {within: 2..160}
   validate :due_date_cannot_be_in_the_past
 
+  scope :search, lambda {|search| where('name ILIKE ?', "%#{search}%")}
+
+
+  def days_til_due
+    if due_date.nil?
+      nil
+    else
+      (due_date - Date.today).to_i
+    end
+  end
+
 
   private
   	

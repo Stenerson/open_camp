@@ -191,6 +191,7 @@ DEPENDENCIES
   heroku
   jquery-rails
   jquery-ui-rails
+  launchy (~> 2.3.0)
   meta_request
   pg
   pry-rails

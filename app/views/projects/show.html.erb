@@ -9,3 +9,34 @@
 <%= link_to 'Add Note', new_project_note_path(@project) %> |
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>
+<br><br>
+<div class="row-fluid">
+  <%= form_tag project_tasks_path(@project), remote: true, method: 'get', id: 'tasks_search' do %>
+    <%= text_field_tag :search, '', class: 'input-medium search-query'%>
+    <%= submit_tag "Search", :name => nil, class: 'btn' %>
+  <%end%>
+</div>
+<h3>
+  Tasks
+</h3>
+
+<div class="row-fluid">
+  <div class="span2">
+    <b>Name</b>
+  </div>
+  <div class="span4">
+    <b>Description</b>
+  </div>
+  <div class="span2">
+    <b>Due Date</b>
+  </div>
+  <div class="span2">
+    <b>Due In (days)</b>
+  </div>
+  <div class="span2">
+    <b>Actions</b>
+  </div>  
+</div>
+<div id="tasks">
+  <%= render @tasks %>
+</div>
